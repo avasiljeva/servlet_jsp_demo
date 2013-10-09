@@ -1,0 +1,92 @@
+<html>
+<head><title>Bank Deposit Form</title>
+<script type="text/javascript">
+
+var req;
+
+function initRequest() {
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        isIE = true;
+        req = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+}
+
+function validateAccount() {
+    initRequest();
+    req.onreadystatechange = processRequest;
+    var target = document.getElementById("account");
+    var url = "/servlet_jsp_demo/ajax_submit?object=account&value=" + escape(target.value);
+    req.open("GET", url, true);
+    req.send(null);
+}
+
+function validateAmount() {
+    initRequest();
+    req.onreadystatechange = processRequest;
+    var target = document.getElementById("amount");
+    var url = "/servlet_jsp_demo/ajax_submit?object=amount&value=" + escape(target.value);
+    req.open("GET", url, true);
+    req.send(null);
+}
+
+function validateSecretCode() {
+    initRequest();
+    req.onreadystatechange = processRequest;
+    var target = document.getElementById("secretCode");
+    var url = "/servlet_jsp_demo/ajax_submit?object=code&value=" + escape(target.value);
+    req.open("GET", url, true);
+    req.send(null);
+}
+
+function processRequest() {
+    if (req.readyState == 4) {
+        if (req.status == 200) {
+            var xmlDoc = req.responseXML.documentElement;
+            var object = xmlDoc.getElementsByTagName("object")[0].childNodes[0].nodeValue;
+            var result = xmlDoc.getElementsByTagName("result")[0].childNodes[0].nodeValue;
+            var message = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
+            setMessageUsingDOM(object, result, message);
+        }
+    }
+}
+
+function setMessageUsingDOM(object, result, message) {
+    var messageElement = document.getElementById(object + 'Message');
+    if (result == "true") {
+        messageElement.style.color = "green";
+    } else {
+        messageElement.style.color = "red";
+    }
+    var messageBody = document.createTextNode(message);
+    if (messageElement.childNodes[0]) {
+        messageElement.replaceChild(messageBody,
+            messageElement.childNodes[0]);
+    } else {
+        messageElement.appendChild(messageBody);
+    }
+}
+
+</script>
+</head>
+<body>
+    <form action="/servlet_jsp_demo/ajax_submit" method="POST">
+
+    <p><label for="account">Bank account:</label><br>
+    <input id="account" name="account" size="30" type="text" onkeyup="validateAccount();"/>
+    <div id="accountMessage"></div></p>
+
+    <p><label for="amount">Deposit amount:</label><br>
+    <input id="amount" name="amount" size="30" type="text" onkeyup="validateAmount();"/>
+    <div id="amountMessage"></div></p>
+    
+    <p><label for="secretCode">Secret code:</label><br>
+    <input id="secretCode" name="secretCode" size="30" type="text" onkeyup="validateSecretCode();"/>
+    <div id="codeMessage"></div></p>
+
+    <p><input type="submit" value="Submit"/></p>
+    </form>
+</body>
+</html>
+

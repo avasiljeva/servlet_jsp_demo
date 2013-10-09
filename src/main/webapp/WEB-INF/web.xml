@@ -1,0 +1,88 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>Demo Web Application</display-name>
+
+    <servlet>
+        <servlet-name>DemoServlet1</servlet-name>
+        <servlet-class>com.web.demo.DemoServlet1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DemoServlet1</servlet-name>
+        <url-pattern>/servlet1</url-pattern>
+    </servlet-mapping>    
+
+    <servlet>
+        <servlet-name>ServletRedirect</servlet-name>
+        <servlet-class>com.web.demo.ServletRedirect</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletRedirect</servlet-name>
+        <url-pattern>/servlet_redirect</url-pattern>
+    </servlet-mapping>
+        
+    <servlet>
+        <servlet-name>ServletForward</servlet-name>
+        <servlet-class>com.web.demo.ServletForward</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletForward</servlet-name>
+        <url-pattern>/servlet_forward</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletIncludeParent</servlet-name>
+        <servlet-class>com.web.demo.ServletIncludeParent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletIncludeParent</servlet-name>
+        <url-pattern>/servlet_include_parent</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServletIncludeChild</servlet-name>
+        <servlet-class>com.web.demo.ServletIncludeChild</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletIncludeChild</servlet-name>
+        <url-pattern>/servlet_include_child</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.web.demo.LoginServlet</servlet-class>
+        <init-param>
+            <param-name>isValid</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AjaxFormServlet</servlet-name>
+        <servlet-class>com.web.demo.AjaxFormServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AjaxFormServlet</servlet-name>
+        <url-pattern>/ajax_submit</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+	   <servlet-name>spring</servlet-name>
+	   <url-pattern>/spring/*</url-pattern>
+    </servlet-mapping>
+
+
+
+</web-app>
